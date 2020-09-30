@@ -1,0 +1,36 @@
+pkgname=pide-panel
+pkgver=0.1.0
+pkgrel=1
+pkgdesc='Panel for KOOMPI OS Desktop Evironment'
+arch=('x86_64')
+url='https://github.com/koompi/os-lxpanel'
+license=('GPL2')
+depends=(
+      "alsa-lib" "libpulse" "lm_sensors" "libstatgrab" "libsysstat"
+      "solid"
+      "menu-cache" "libxcomposite" "lxmenu-data" "libdbusmenu-qt5"
+      "lxqt-globalkeys"
+)
+makedepends=("git" "cmake" "qt5-tools" "lxqt-build-tools")
+provides=("pide-panel")
+conflicts=("lxqt-panel")
+replace=("lxqt-panel")
+source=("git+https://github.com/koompi/os-lxpanel.git")
+
+build() {
+      mkdir -p "$srcdir/build"
+      
+      cd "$srcdir/build"
+      cmake "$srcdir/os-lxpanel" \
+            -DCMAKE_INSTALL_PREFIX=/usr \
+            -DCMAKE_INSTALL_LIBDIR=/usr/lib \
+            -DCMAKE_BUILD_TYPE=Release
+      make
+}
+
+package() {
+      cd "$srcdir/build"
+      make install DESTDIR="$pkgdir"
+	install -Dm644 "${srcdir}/build/plugin-launcher/koompi-dark.svg" "${pkgdir}/usr/share/icons/koompi-dark.svg"
+	install -Dm644 "${srcdir}/build/plugin-launcher/koompi-light.svg" "${pkgdir}/usr/share/icons/koompi-light.svg"
+}

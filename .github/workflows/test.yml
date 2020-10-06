@@ -26,7 +26,7 @@ jobs:
           name: id_rsa
           known_hosts: ${{ secrets.KNOWN_HOSTS }}
       - name: ENV
-          run: ssh alarm@96.9.77.65 'touch /home/alarm/file_by_brilliant_from_github.text'
+          run: ssh alarm@96.9.77.65 "touch /home/alarm/file_by_brilliant_from_github.text"
           #   - name: ENV
     #     env:
     #       BASH_SECRET: ${{ secrets.BASH_SHELL }}

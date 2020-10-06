@@ -1,5 +1,5 @@
 pkgname=pide-panel
-pkgver=0.1.0
+pkgver=0.1.2
 pkgrel=1
 pkgdesc='Panel for KOOMPI OS Desktop Evironment'
 arch=('x86_64')

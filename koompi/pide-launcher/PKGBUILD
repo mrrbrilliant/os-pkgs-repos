@@ -5,7 +5,7 @@
 
 # Maintainer: Your Name <youremail@domain.com>
 pkgname=koompi-launcher
-pkgver=1.0.5
+pkgver=1.0.6
 pkgrel=1
 pkgdesc="Application launcher for KOOMPI OS"
 arch=('x86_64')

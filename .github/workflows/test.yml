@@ -18,15 +18,21 @@ jobs:
           for((i=0;i<${#added_modified_files[@]};i++)){
               echo "Do something with this ${added_modified_files[$i]}."
           }
-        #   echo "Added:"
-        #   echo "${{ steps.abc.outputs.added }}"
-        #   echo "${{ steps.abc.outputs.modified }}"
-        #   echo "Added+Modified:"
-        #   echo "All:"
-        #   echo "${{ steps.abc.outputs.all }}"
-        #   echo "Removed:"
-        #   echo "${{ steps.abc.outputs.removed }}"
-        #   echo "Renamed:"
-        #   echo "${{ steps.abc.outputs.renamed }}"
-        #   echo "Modified:"
-        #   echo "${{ steps.abc.outputs.added_modified }}"
+
+      - name: Install ssh key
+      - uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          name: id_rsa
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
+
+      - name: ENV
+        env:
+          BASH_SECRET: ${{ secrets.BASH_SHELL }}
+        run: ssh alarm@96.9.77.65 'touch /home/alarm/file_by_brilliant_from_github.text'
+
+    #   - name: Add permission
+    #     run: chmod +x run-bash-secret
+
+    #   - name: Deploy...
+    #     run: ./run-bash-secret

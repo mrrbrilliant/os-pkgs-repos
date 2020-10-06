@@ -16,7 +16,7 @@ jobs:
         run: |
           readarray -t added_modified_files <<<"$(jq -r '.[]' <<<'${{ steps.files.outputs.added_modified }}')"
           for((i=0;i<${#added_modified_files[@]};i++)){
-              echo "Do something with this ${added_modified_files[$i]%/*}."
+              echo "Do something with this ${added_modified_files[$i]}."
           }
         #   echo "Added:"
         #   echo "${{ steps.abc.outputs.added }}"

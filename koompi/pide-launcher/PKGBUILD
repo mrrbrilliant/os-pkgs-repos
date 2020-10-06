@@ -1,0 +1,35 @@
+# This is an example PKGBUILD file. Use this as a start to creating your own,
+# and remove these comments. For more information, see 'man PKGBUILD'.
+# NOTE: Please fill out the license field for your package! If it is unknown,
+# then please put 'unknown'.
+
+# Maintainer: Your Name <youremail@domain.com>
+pkgname=koompi-launcher
+pkgver=1.0.2
+pkgrel=1
+pkgdesc="Application launcher for KOOMPI OS"
+arch=('x86_64')
+url="https://github.com/koompi/os-launcher"
+license=('MIT')
+# makedepends=('git' 'qmake' 'qt5-base')
+provides=("koompi-launcher")
+conflicts=("koompi-launcher")
+replaces=("koompi-launcher")
+source=("git+https://github.com/koompi/os-launcher.git")
+
+build() {
+	mkdir -p "${srcdir}/build"
+	cd "${srcdir}/build"
+	echo "running qmake"
+	qmake ../os-launcher/
+	echo "running make"
+	make
+}
+
+package() {
+	mkdir -p "${pkgdir}/${pkgname}-${pkgver}"
+	cd "${srcdir}/build"
+	install -Dm755 "${srcdir}/build/koompi-launcher" "${pkgdir}/usr/bin/${pkgname}"
+	install -Dm644 "${srcdir}/os-launcher/org.koompi.os.launcher.service" "${pkgdir}/usr/share/dbus-1/services/org.koompi.os.launcher.service"
+	install -Dm644 "${srcdir}/os-launcher/koompi-launcher.desktop" "${pkgdir}/etc/xdg/autostart/lxqt-launcher.desktop"
+}

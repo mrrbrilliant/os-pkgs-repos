@@ -15,9 +15,9 @@ jobs:
       - name: Printing
         run: |
           readarray -t added_modified_files <<<"$(jq '.[]' <<<'${{ steps.files.outputs.added_modified }}')"
-          for added_modified_file in ${#added_modified_files[@]}; do
-              echo "Do something with this ${added_modified_file%/*}."
-          done
+          for((i=0;i<${#added_modified_files[@]};i++)){
+              echo "Do something with this ${added_modified_files[$i]%/*}."
+          }
         #   echo "Added:"
         #   echo "${{ steps.abc.outputs.added }}"
         #   echo "${{ steps.abc.outputs.modified }}"
